@@ -1,12 +1,16 @@
 import React from 'react';
+import { Link, useNavigate } from "react-router-dom";
+
 import { useForm } from 'react-hook-form';
-import authApi from '../apis/authApi'
 import { useAppDispatch, useAppSelector } from '../context/app/hooks';
 import { signIn, addError, removeError } from '../context/features/auth/authSlice';
+
+import authApi from '../apis/authApi'
 import { LoginData } from '../interfaces/authInterfaces';
 
 export const Login: React.FC = () => {
 
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { register, handleSubmit, formState: { errors } } = useForm<LoginData>();
   const error = useAppSelector(state => state.auth.errorMessage);
@@ -17,6 +21,8 @@ export const Login: React.FC = () => {
       localStorage.setItem("token", data.token);
 
       dispatch(signIn(data));
+
+      navigate("/home");
     } catch (error: any) {
         dispatch(addError(error.response.data || 'Información Incorrecta'));
     }
@@ -58,7 +64,12 @@ export const Login: React.FC = () => {
             {errors.password && <span className='text-red-600 text-sm'>This field is required</span>}
           </div>
           <div>
-            <button className="w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 rounded-md text-white text-sm">Login</button>
+            <button className="w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 rounded-md text-white text-sm" onClick={onSubmit}>Login</button>
+          </div>
+          <div>
+            <Link to="/signup">
+              <button className="w-full py-2 px-4 bg-cyan-600 hover:bg-cyan-700 rounded-md text-white text-sm">Create Account</button>
+            </Link>
           </div>
         </form>
       </div>

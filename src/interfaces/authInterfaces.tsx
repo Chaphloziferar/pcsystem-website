@@ -1,13 +1,15 @@
 export interface AuthState {
     status: 'Checking' | 'Authenticated' | 'Not-Authenticated';
-    token: string;
+    username: string;
     role: string;
+    token: string;
     errorMessage: string;
 }
 
 export interface LoginResponse {
-    token: string;
+    username: string;
     role: string;
+    token: string;
 }
 
 export interface LoginData {
