@@ -1,14 +1,18 @@
 import React, { useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from './context/app/hooks';
+import { Route, Routes } from "react-router-dom";
+
+import { useAppDispatch } from './context/app/hooks';
+import { signIn, logout } from './context/features/auth/authSlice'
+
 import authApi from './apis/authApi';
 import { Login } from './views/Login';
 import { Home } from './views/Home';
-import { signIn, logout } from './context/features/auth/authSlice'
+import { SignUp } from './views/SignUp';
 
 const App: React.FC = () => {
 
   const dispatch = useAppDispatch();
-  const status = useAppSelector(state => state.auth.status);
+  //const status = useAppSelector(state => state.auth.status);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -37,10 +41,12 @@ const App: React.FC = () => {
   
 
   return (
-    <React.Fragment>
-      { (status === 'Not-Authenticated') && <Login />}
-      { (status === 'Authenticated') && <Home />}
-    </React.Fragment>
+    <Routes>
+      <Route path="/" element={<Login />} />
+      <Route path="/home" element={ <Home />} />
+      <Route path="/login" element={ <Login />} />
+      <Route path="/signup" element={ <SignUp />} />
+    </Routes>
   )
 }
 

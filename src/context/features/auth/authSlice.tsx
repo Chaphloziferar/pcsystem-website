@@ -3,8 +3,9 @@ import { AuthState, LoginResponse } from '../../../interfaces/authInterfaces';
 
 const initialState: AuthState = {
     status: 'Checking',
-    token: '',
+    username: '',
     role: 'user',
+    token: '',
     errorMessage: ''
 }
 
@@ -14,20 +15,23 @@ const authSlice = createSlice({
     reducers: {
         signIn: (state, action: PayloadAction<LoginResponse>) => {
             state.status = 'Authenticated';
-            state.token = action.payload.token;
+            state.username = action.payload.username;
             state.role = action.payload.role;
+            state.token = action.payload.token;
             state.errorMessage = '';
         },
         logout: (state) => {
             state.status = 'Not-Authenticated';
-            state.token = '';
+            state.username = '';
             state.role = 'user';
+            state.token = '';
             state.errorMessage = '';
         },
         addError: (state, action: PayloadAction<string>) => {
             state.status = 'Not-Authenticated';
+            state.username = '';
+            state.role = '';
             state.token = '';
-            state.role = 'user';
             state.errorMessage = action.payload;
         },
         removeError: (state) => {
