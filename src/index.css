@@ -15,3 +15,11 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.FootCol {
+  @apply flex flex-col text-left ml-16
+}
+
+.FootLink {
+  @apply text-white font-semibold mb-1 hover:text-teal-700 transition-shadow w-1/3
+}
