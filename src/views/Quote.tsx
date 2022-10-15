@@ -34,7 +34,7 @@ export const Quote = () => {
   };
 
   return (
-    <div className="lg:w-4/5 md:w-full mx-auto">
+    <div className="container mx-auto">
       <Header />
 
       {!quote && (
