@@ -47,7 +47,7 @@ export const ProductCard = ({ product }: Props) => {
   }
 
   return (
-    <div className="w-full max-w-sm mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
+    <div className="w-72 max-w-sm mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
       <div className="flex w-full h-72 justify-center align-middle">
         <img className="p-8 rounded-t-lg w-full object-fill" src={product.imageUrl} alt="" />
       </div>

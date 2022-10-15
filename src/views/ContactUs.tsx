@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
-
+import FacebookIcon from '@mui/icons-material/Facebook';
 import authApi from '../apis/authApi';
+import EmailIcon from '@mui/icons-material/Email';
+import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid';
 
 export const ContactUs = () => {
   
@@ -17,16 +19,28 @@ export const ContactUs = () => {
             </div>
         </div>
         <div className='flex flex-row justify-evenly'>
-            <div>
+            <div className='w-1/3'>
                 <h1 className='text-2xl font-medium pl-5 m-6 border-b-2'>Informacion de contacto</h1>
-                <ul className='flex flex-col'>
+                <div className='flex flex-col'>
+                    <div className=' flex flex-row items-center m-0 ml-12 mb-4'>
+                    <FacebookIcon/>
                     <a className="ContactLink hover:text-emerald-800" target="_blank" href="https://www.facebook.com/pcsystem.nic">Facebook</a>
-                    <a className="ContactLink">Email: pcsystem.nic@gmail.com</a>
-                    <a className="ContactLink">Telefono: +50584422235</a>
-                </ul>
+                    </div>
+                    <div className=' flex flex-row items-center m-0 ml-12 mb-4'>
+                    <EmailIcon/>
+                    <a className="ContactLink">pcsystem.nic@gmail.com</a>
+                    </div>
+                    <div className=' flex flex-row items-center m-0 ml-12 mb-4'>
+                    <PhoneAndroidIcon/>
+                    <a className="ContactLink">+50584422235</a>
+                    </div>
+                </div>
             </div>
-            <div>
+            <div className='w-1/3'>
                 <h1 className='text-2xl font-medium pl-5 m-6 border-b-2'>Dirección</h1>
+                <div className='w-1/2 ml-12 text-lg'>
+                    Las Brisas, Distrito #2 de policía, 5 cuadras al oeste, mano derecha, Managua, Nicaragua
+                </div>
             </div>
         </div>
         <Footer/>
