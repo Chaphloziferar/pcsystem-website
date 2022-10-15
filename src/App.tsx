@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Route, Routes } from "react-router-dom";
 
 import { useAppDispatch } from './context/app/hooks';
-import { signIn, logout } from './context/features/auth/authSlice'
+import { signIn, logout } from './context/features/auth/authSlice';
 import { getClient } from './context/features/client/clientSlice';
 import { getQuote } from './context/features/quote/quoteSlice';
 
