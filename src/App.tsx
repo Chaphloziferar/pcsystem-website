@@ -6,8 +6,10 @@ import { signIn, logout } from './context/features/auth/authSlice'
 
 import authApi from './apis/authApi';
 import { Login } from './views/Login';
-import { Home } from './views/Home';
 import { SignUp } from './views/SignUp';
+import { Home } from './views/Home';
+import { Categories } from './views/Categories';
+import { Products } from './views/Products';
 
 const App: React.FC = () => {
 
@@ -46,6 +48,8 @@ const App: React.FC = () => {
       <Route path="/home" element={ <Home />} />
       <Route path="/login" element={ <Login />} />
       <Route path="/signup" element={ <SignUp />} />
+      <Route path="/categories" element={ <Categories />} />
+      <Route path="/products" element={ <Products />} />
     </Routes>
   )
 }
