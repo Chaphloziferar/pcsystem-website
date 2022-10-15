@@ -10,9 +10,6 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { CategoryCard } from '../components/CategoryCard';
 
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-
 export const Categories = () => {
     
     const dispatch = useAppDispatch();
