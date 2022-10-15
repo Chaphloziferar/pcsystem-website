@@ -31,7 +31,7 @@ export const CategoryCard = ({category}: Props) => {
 
     return (
         <div className="max-w-sm w-72 mb-8 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
-            <div className="flex rounded-t-lg w-72 h-52 justify-center align-middle bg-white">
+            <div className="flex rounded-t-lg w-auto h-52 justify-center align-middle bg-white">
                 <img className="rounded-t-lg w-full h-full p-5 object-fill m-auto" src={category.imageUrl} alt="" />
             </div>
             <div className="p-5">

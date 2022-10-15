@@ -10,6 +10,8 @@ import { SignUp } from './views/SignUp';
 import { Home } from './views/Home';
 import { Categories } from './views/Categories';
 import { Products } from './views/Products';
+import { ContactUs } from './views/ContactUs';
+
 
 const App: React.FC = () => {
 
@@ -50,6 +52,7 @@ const App: React.FC = () => {
       <Route path="/signup" element={ <SignUp />} />
       <Route path="/categories" element={ <Categories />} />
       <Route path="/products" element={ <Products />} />
+      <Route path="/contactus" element={ <ContactUs />} />
     </Routes>
   )
 }
