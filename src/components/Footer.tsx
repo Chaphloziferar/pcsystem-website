@@ -2,7 +2,7 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <div className="py-6 px-16 bg-blue-400 relative bottom-0 w-full max-h-80 container">
+    <div className="py-6 px-16 bg-blue-400 relative bottom-0 w-full max-h-80 container overflow-hidden">
       <div className="flex flex-col justify-center my-0 mx-auto max-w-5xl">
         <div className="grid gap-5 grid-cols-3 max-w-5xl">
           <div className="FootCol">
