@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from '../context/app/hooks';
 import { signIn, addError, removeError } from '../context/features/auth/authSlice';
+import { getClient } from '../context/features/client/clientSlice';
 
 import authApi from '../apis/authApi'
 import { LoginData } from '../interfaces/authInterfaces';
@@ -17,10 +18,14 @@ export const Login: React.FC = () => {
 
   const onSubmit = handleSubmit(async ({username, password}) => {
     try {
-      const {data} = await authApi.post("/auth/signIn", {username, password});
-      localStorage.setItem("token", data.token);
+      const {data: login} = await authApi.post("/auth/signIn", {username, password});
+      localStorage.setItem("token", login.token);
+      localStorage.setItem("email", login.email);
 
-      dispatch(signIn(data));
+      dispatch(signIn(login));
+
+      const {data: user} = await authApi.get(`/client/getClientByEmail?email=${login.email}`);
+      dispatch(getClient(user));
 
       navigate("/home");
     } catch (error: any) {

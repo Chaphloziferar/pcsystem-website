@@ -6,6 +6,8 @@ import { getCategories, addError } from '../context/features/category/categorySl
 import authApi from '../apis/authApi';
 import { Category } from '../interfaces/categoryInterfaces';
 
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 import { CategoryCard } from '../components/CategoryCard';
 
 import Header from '../components/Header';
