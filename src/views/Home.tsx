@@ -64,6 +64,7 @@ export const Home: React.FC = () => {
       <div className='h-auto flex justify-center self-center w-full invisible lg:visible'>
         <img className="h-4/5 w-4/5 shadow-md" src={Banner} alt="Logo" />
       </div>
+      <Footer/>
     </div>
   )
 }
