@@ -13,6 +13,7 @@ import { Home } from './views/Home';
 import { Categories } from './views/Categories';
 import { Products } from './views/Products';
 import { Quote } from './views/Quote';
+import { ContactUs } from './views/ContactUs';
 
 const App: React.FC = () => {
 
@@ -65,6 +66,7 @@ const App: React.FC = () => {
       <Route path="/categories" element={ <Categories />} />
       <Route path="/products" element={ <Products />} />
       <Route path="/quote" element={ <Quote />} />
+      <Route path="/contactus" element={ <ContactUs />} />
     </Routes>
   )
 }

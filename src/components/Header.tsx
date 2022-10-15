@@ -20,14 +20,14 @@ const Header = () =>{
                 <div className=" w-1/4  flex flex-row items-center space-x-2 mx-2 ">
                     <div className="flex flex-row items-center w-1/2 ">
                         <img className="h-16 w-20" src={Logo} alt="Logo" />
-                        <p className="text-white font-semibold text-xl">PCSYSTEM</p>
+                        <p className="text-white invisible lg:visible font-semibold text-xl">PCSYSTEM</p>
                     </div>
                 </div>
-                <div className="w-1/2 mx-2 h-12 flex justify-center">
+                <div className="w-1/2 mx-2 h-12 flex justify-center border-red-400 border-2">
                      {/*<SearchBar placeholder="Buscar..." data={Data}/>*/}
-                     <ul className="w-full flex flex-row justify-evenly items-center">
+                     <ul className="w-full flex flex-row justify-between items-center">
                         <li className="NavItem">
-                            <a href="/home">
+                            <a href="/Home">
                                 Inicio
                             </a>
                         </li>
@@ -37,13 +37,8 @@ const Header = () =>{
                             </Link>
                         </li>
                         <li className="NavItem">
-                            <a href="#">
+                            <a href="/Contactus">
                                 Contactanos
-                            </a>
-                        </li>
-                        <li className="NavItem">
-                            <a href="#">
-                                PlaceHolder
                             </a>
                         </li>
                      </ul>
@@ -64,7 +59,7 @@ const Header = () =>{
                         }}
                     >
                         <div className="w-full flex flex-row justify-center items-center">
-                            <span className="text-white font-semibold text-lg">Perfil</span>
+                            <span className="text-white invisible lg:visible font-semibold text-lg">Perfil</span>
                             <AccountBoxIcon fontSize="large" style={{ color: '#fff' }}/>
                         </div>
                     </button>
