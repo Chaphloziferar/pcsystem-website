@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { useAppDispatch, useAppSelector } from '../context/app/hooks';
+import { useAppDispatch } from '../context/app/hooks';
 import { getProducts, addError } from '../context/features/product/productSlice';
 
 import authApi from '../apis/authApi'
@@ -22,6 +22,8 @@ export const CategoryCard = ({category}: Props) => {
             const { data } = await authApi.get(`/product/getProductsByCategory?category=${category.name}`);
 
             dispatch(getProducts(data));
+
+            localStorage.setItem("category", category.name);
             
             navigate('/products');
         } catch (error: any) {

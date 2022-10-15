@@ -6,6 +6,8 @@ import { getCategories, addError } from '../context/features/category/categorySl
 import authApi from '../apis/authApi';
 import { Category } from '../interfaces/categoryInterfaces';
 
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 import { CategoryCard } from '../components/CategoryCard';
 
 export const Categories = () => {
@@ -31,6 +33,7 @@ export const Categories = () => {
 
     return (
         <div className='container mx-auto'>
+            <Header/>
             <h1 className='text-2xl font-medium pl-5 m-6'>Seleccione una categoria</h1>
 
             <div className='grid lg:grid-cols-3 sm:grid-cols-1 place-items-center'>
@@ -40,6 +43,7 @@ export const Categories = () => {
                     ))
                 }
             </div>
+            <Footer/>
         </div>
     )
 }

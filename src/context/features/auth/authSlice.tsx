@@ -6,6 +6,7 @@ const initialState: AuthState = {
     username: '',
     role: 'user',
     token: '',
+    email: '',
     errorMessage: ''
 }
 
@@ -17,6 +18,7 @@ const authSlice = createSlice({
             state.status = 'Authenticated';
             state.username = action.payload.username;
             state.role = action.payload.role;
+            state.email = action.payload.email;
             state.token = action.payload.token;
             state.errorMessage = '';
         },
@@ -24,6 +26,7 @@ const authSlice = createSlice({
             state.status = 'Not-Authenticated';
             state.username = '';
             state.role = 'user';
+            state.email = '';
             state.token = '';
             state.errorMessage = '';
         },
@@ -31,6 +34,7 @@ const authSlice = createSlice({
             state.status = 'Not-Authenticated';
             state.username = '';
             state.role = '';
+            state.email = '';
             state.token = '';
             state.errorMessage = action.payload;
         },
