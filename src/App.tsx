@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLoaderData } from "react-router-dom";
 
 import { useAppDispatch } from './context/app/hooks';
 import { signIn, logout } from './context/features/auth/authSlice';
@@ -23,7 +23,6 @@ const App: React.FC = () => {
   useEffect(() => {
     const token = localStorage.getItem('token');
     const email = localStorage.getItem('email');
-    const cart = localStorage.getItem('cart');
 
     if (token) {
 
@@ -37,19 +36,29 @@ const App: React.FC = () => {
 
           const {data: user} = await authApi.get(`/client/getClientByEmail?email=${email}`);
           dispatch(getClient(user));
-
-          const {data: quote} = await authApi.get(`/quote/getQuote?quoteId=${cart}`);
-          dispatch(getQuote(quote));
         } catch (error: any) {
           dispatch(logout());
           localStorage.removeItem("token");
           localStorage.removeItem("email");
           localStorage.removeItem("category");
-          localStorage.removeItem("cart");
+        }
+      }
+
+      const loadMainData = async () => {
+        const cart = localStorage.getItem('cart');
+
+        if (cart) {
+          try {
+            const {data: quote} = await authApi.get(`/quote/getQuote?quoteId=${cart}`);
+            dispatch(getQuote(quote));
+          } catch (error: any) {
+            localStorage.removeItem("cart");
+          }
         }
       }
 
       checkAuth(token);
+      loadMainData();
     }
     else{
       dispatch(logout());

@@ -46,7 +46,7 @@ export const Quote = () => {
       {quote && (
         <div className="mx-auto mt-10">
           <div className="grid lg:grid-flow-col sm:grid-flow-row shadow-md my-10">
-            <div className="w-full bg-white px-10 py-10 border-2 border-red-700">
+            <div className="w-full bg-white px-10 py-10">
               <div className="flex justify-between border-b pb-8">
                 <h1 className="font-semibold text-2xl">Carrito de Compras</h1>
                 <h2 className="font-semibold text-2xl">
@@ -72,7 +72,7 @@ export const Quote = () => {
 
             <div
               id="summary"
-              className="w-full px-8 py-10 border-2 border-red-700"
+              className="w-full px-8 py-10"
             >
               <h1 className="font-semibold text-2xl border-b pb-8">
                 Total del carrito
