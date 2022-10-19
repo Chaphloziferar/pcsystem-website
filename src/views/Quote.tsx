@@ -1,6 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import emailjs from '@emailjs/browser';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
 
 import { useAppDispatch, useAppSelector } from "../context/app/hooks";
 import { resetQuote, addError } from "../context/features/quote/quoteSlice";
@@ -40,7 +42,7 @@ export const Quote = () => {
         emailTemplate, 
         'syygg_P_W1wWv2oLS'
       );
-      console.log("Email sended")
+      generatePDF();
 
       dispatch(resetQuote());
       localStorage.removeItem("cart");
@@ -48,6 +50,38 @@ export const Quote = () => {
     } catch (error: any) {
       dispatch(addError(error.response.data || "Información Incorrecta"));
     }
+  };
+
+  const generatePDF = () => {
+    const pdf = new jsPDF();
+
+    let columns = ["ID", "Producto", "Descripcion", "Precio"];
+    let data: any = [];
+
+    quote.products.forEach((product: Product, index: number) => {
+      data.push([
+        (index + 1),
+        product.name,
+        product.description,
+        product.price,
+      ]);
+    });
+
+    data.push([
+      "",
+      "Total",
+      "",
+      quote.total,
+    ]);
+
+    autoTable(pdf, {
+      head: [columns],
+      body: data,
+    });
+
+    pdf.text("Cotizacion realizada en PCSystem", 10, 10);
+
+    pdf.save("Cotizacion-PCSystem.pdf");
   };
 
   return (
@@ -74,10 +108,10 @@ export const Quote = () => {
                 <h3 className="font-semibold text-gray-600 text-xs uppercase w-2/5">
                   Detalle del Producto
                 </h3>
-                <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center">
+                <h3 className="font-semibold text-gray-600 text-xs uppercase w-1/5 text-center">
                   Precio
                 </h3>
-                <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center">
+                <h3 className="font-semibold text-gray-600 text-xs uppercase w-1/5 text-center">
                   Total
                 </h3>
               </div>
