@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import emailjs from '@emailjs/browser';
 
 import { useAppDispatch, useAppSelector } from "../context/app/hooks";
 import { resetQuote, addError } from "../context/features/quote/quoteSlice";
@@ -15,9 +16,16 @@ export const Quote = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const quote = useAppSelector((state: any) => state.quote.quote);
+  const username = useAppSelector((state: any) => state.auth.username);
 
   const handleFinishQuote = async () => {
     const cart = localStorage.getItem("cart");
+    const email = localStorage.getItem("email");
+
+    const emailTemplate = {
+      email: email,
+      username: username
+    }
 
     try {
       const quoteId = cart!.toString();
@@ -25,6 +33,14 @@ export const Quote = () => {
         quoteId: quoteId,
         status: "Done",
       });
+
+      await emailjs.send(
+        'service_4l1u3tu', 
+        'template_7bwomli', 
+        emailTemplate, 
+        'syygg_P_W1wWv2oLS'
+      );
+      console.log("Email sended")
 
       dispatch(resetQuote());
       localStorage.removeItem("cart");

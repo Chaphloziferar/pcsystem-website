@@ -7,7 +7,6 @@ import { logout } from "../context/features/auth/authSlice";
 import Logo from "../assets/PCSYSTEM_Logo.png";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
-import MenuIcon from '@mui/icons-material/Menu';
 
 const Header = () =>{
 
@@ -15,11 +14,9 @@ const Header = () =>{
     const navigate = useNavigate();
 
     const [width, setWidth]   = useState(window.innerWidth);
-    const [height, setHeight] = useState(window.innerHeight);
 
     const updateDimensions = () => {
         setWidth(window.innerWidth);
-        setHeight(window.innerHeight);
     }
 
     useEffect(() => {
@@ -41,9 +38,9 @@ const Header = () =>{
                      {/*<SearchBar placeholder="Buscar..." data={Data}/>*/}
                      <ul className="w-full flex flex-row justify-between items-center">
                         <li className="NavItem">
-                            <a href="/Home">
+                            <Link to="/home">
                                 Inicio
-                            </a>
+                            </Link>
                         </li>
                         <li className="NavItem">
                             <Link to="/categories">

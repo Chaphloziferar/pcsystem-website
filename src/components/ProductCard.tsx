@@ -16,8 +16,8 @@ export const ProductCard = ({ product }: Props) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const status = useAppSelector((state) => state.auth.status);
-  const client = useAppSelector((state) => state.client.client);
+  const status = useAppSelector((state: any) => state.auth.status);
+  const client = useAppSelector((state: any) => state.client.client);
 
   const handleAddToCart = async () => {
     const cart = localStorage.getItem("cart");
