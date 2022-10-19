@@ -9,7 +9,6 @@ import { Quote } from "../interfaces/quoteInterfaces";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { ModalQuote } from "../components/ModalQuote";
-import { getMouseEventOptions } from "@testing-library/user-event/dist/utils";
 
 export const Administration = () => {
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import emailjs from '@emailjs/browser';
 import jsPDF from 'jspdf';
@@ -15,10 +15,52 @@ import { QuoteItem } from "../components/QuoteItem";
 import { Product } from '../interfaces/productInterfaces';
 
 export const Quote = () => {
+
+  const [products, setProducts] = useState([]);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const quote = useAppSelector((state: any) => state.quote.quote);
   const username = useAppSelector((state: any) => state.auth.username);
+
+  useEffect(() => {
+    const uniqueIds: any = []
+    const newData: any = []
+
+    const unique = quote?.products.filter((element: any) => {
+      const isDuplicate = uniqueIds.includes(element.name);
+    
+      if (!isDuplicate) {
+        uniqueIds.push(element.name);
+        newData.push({
+          name: element.name,
+          count: 1
+        })
+    
+        return true;
+      }
+    
+      let index = uniqueIds.indexOf(element.name)
+      newData[index].count++
+    
+      return false;
+    });
+    
+    const result = unique?.map((data: any) => {
+      let count = 1
+      const newItem = newData?.filter((item: any) => {
+        if(data.name === item.name){
+          return item
+        }
+      })
+    
+      if(newItem.length > 0) count = newItem[0].count
+    
+      return {...data, count: count}
+    })
+
+    setProducts(result);
+  }, [quote?.products])
+  
 
   const handleFinishQuote = async () => {
     const cart = localStorage.getItem("cart");
@@ -55,15 +97,17 @@ export const Quote = () => {
   const generatePDF = () => {
     const pdf = new jsPDF();
 
-    let columns = ["ID", "Producto", "Descripcion", "Precio"];
+    let columns = ["ID", "Producto", "Descripcion", "Precio", "Cantidad", "Total"];
     let data: any = [];
 
-    quote.products.forEach((product: Product, index: number) => {
+    products.forEach((product: any, index: number) => {
       data.push([
         (index + 1),
         product.name,
         product.description,
         '$' + (product.price).toFixed(2),
+        product.count,
+        '$' + (product.price * product.count).toFixed(2)
       ]);
     });
 
@@ -71,17 +115,23 @@ export const Quote = () => {
       "",
       "Sub-Total",
       "",
+      "",
+      "",
       '$' + (quote.total).toFixed(2),
     ],
     [
       "",
       "Impuestos",
       "",
+      "",
+      "",
       '$' + (quote.total * 0.15).toFixed(2),
     ],
     [
       "",
       "Total",
+      "",
+      "",
       "",
       '$' + (quote.total * 1.15).toFixed(2),
     ]);
@@ -124,14 +174,14 @@ export const Quote = () => {
                   Precio
                 </h3>
                 <h3 className="font-semibold text-gray-600 text-xs uppercase w-1/5 text-center">
-                  IVA
+                  Cantidad
                 </h3>
                 <h3 className="font-semibold text-gray-600 text-xs uppercase w-1/5 text-center">
                   Total
                 </h3>
               </div>
 
-              {quote?.products.map((product: Product, index: number) => (
+              {products.map((product: Product, index: number) => (
                 <QuoteItem product={product} key={index} />
               ))}
             </div>

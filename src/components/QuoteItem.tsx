@@ -4,10 +4,9 @@ import { useAppDispatch, useAppSelector } from "../context/app/hooks";
 import { getQuote, addError } from "../context/features/quote/quoteSlice";
 
 import authApi from '../apis/authApi'
-import { Product } from '../interfaces/productInterfaces';
 
 interface Props {
-    product: Product;
+    product: any;
 }
 
 export const QuoteItem = ({product}: Props) => {
@@ -48,8 +47,8 @@ export const QuoteItem = ({product}: Props) => {
         </div>
       </div>
       <span className="text-center w-1/5 font-semibold text-sm">${(product.price).toFixed(2)}</span>
-      <span className="text-center w-1/5 font-semibold text-sm">${(product.price * 0.15).toFixed(2)}</span>
-      <span className="text-center w-1/5 font-semibold text-sm">${(product.price * 1.15).toFixed(2)}</span>
+      <span className="text-center w-1/5 font-semibold text-sm">{product.count}</span>
+      <span className="text-center w-1/5 font-semibold text-sm">${(product.price * product.count).toFixed(2)}</span>
     </div>
   );
 };
