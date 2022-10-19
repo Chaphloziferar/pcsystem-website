@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from 'react-router-dom';
 
-import { useAppDispatch } from "../context/app/hooks";
+import { useAppDispatch, useAppSelector } from "../context/app/hooks";
 import { logout } from "../context/features/auth/authSlice";
 
 import Logo from "../assets/PCSYSTEM_Logo.png";
@@ -12,6 +12,7 @@ const Header = () =>{
 
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
+    const role = useAppSelector((state: any) => state.auth.role);
 
     const [width, setWidth]   = useState(window.innerWidth);
 
@@ -34,9 +35,9 @@ const Header = () =>{
                     </div>
                 </div>
 
-                {(width > 720) && <div className="w-1/2 mx-2 h-12 flex justify-center">
+                {(width > 770) && <div className="w-1/2 mx-2 h-12 flex justify-center">
                      {/*<SearchBar placeholder="Buscar..." data={Data}/>*/}
-                     <ul className="w-full flex flex-row justify-between items-center">
+                     <ul className="w-full flex lg:flex-row justify-between items-center">
                         <li className="NavItem">
                             <Link to="/home">
                                 Inicio
@@ -48,14 +49,19 @@ const Header = () =>{
                             </Link>
                         </li>
                         <li className="NavItem">
-                            <a href="/Contactus">
+                            <Link to="/contactus">
                                 Contactanos
-                            </a>
+                            </Link>
                         </li>
+                        {role === "admin" && <li className="NavItem">
+                            <Link to="/administration">
+                                Administration
+                            </Link>
+                        </li>}
                      </ul>
                 </div>}
 
-                {(width < 720) && <div className="relative w-full lg:max-w-sm">
+                {(width < 770) && <div className="relative w-full lg:max-w-sm">
                     <select
                         className="w-full p-2.5 border rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600 text-center"
                         onChange={(e) => {if(e.target.value !== 'none') navigate(e.target.value)}}
@@ -64,6 +70,7 @@ const Header = () =>{
                         <option value="/home">Inicio</option>
                         <option value="/categories">Catalogo</option>
                         <option value="/contactus">Contacto</option>
+                        {role === "admin" && <option value="/administration">Administration</option>}
                     </select>
                 </div>}
 

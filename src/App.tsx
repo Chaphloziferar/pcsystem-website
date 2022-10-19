@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Route, Routes, useLoaderData } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 
 import { useAppDispatch } from './context/app/hooks';
 import { signIn, logout } from './context/features/auth/authSlice';
@@ -14,6 +14,7 @@ import { Categories } from './views/Categories';
 import { Products } from './views/Products';
 import { Quote } from './views/Quote';
 import { ContactUs } from './views/ContactUs';
+import { Administration } from './views/Administration';
 
 const App: React.FC = () => {
 
@@ -76,6 +77,7 @@ const App: React.FC = () => {
       <Route path="/products" element={ <Products />} />
       <Route path="/quote" element={ <Quote />} />
       <Route path="/contactus" element={ <ContactUs />} />
+      <Route path="/administration" element={ <Administration />} />
     </Routes>
   )
 }

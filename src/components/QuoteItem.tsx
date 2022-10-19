@@ -47,8 +47,9 @@ export const QuoteItem = ({product}: Props) => {
           </button>
         </div>
       </div>
-      <span className="text-center w-1/5 font-semibold text-sm">${product.price}</span>
-      <span className="text-center w-1/5 font-semibold text-sm">${product.price}</span>
+      <span className="text-center w-1/5 font-semibold text-sm">${(product.price).toFixed(2)}</span>
+      <span className="text-center w-1/5 font-semibold text-sm">${(product.price * 0.15).toFixed(2)}</span>
+      <span className="text-center w-1/5 font-semibold text-sm">${(product.price * 1.15).toFixed(2)}</span>
     </div>
   );
 };

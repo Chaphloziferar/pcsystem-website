@@ -63,15 +63,27 @@ export const Quote = () => {
         (index + 1),
         product.name,
         product.description,
-        product.price,
+        '$' + (product.price).toFixed(2),
       ]);
     });
 
     data.push([
       "",
+      "Sub-Total",
+      "",
+      '$' + (quote.total).toFixed(2),
+    ],
+    [
+      "",
+      "Impuestos",
+      "",
+      '$' + (quote.total * 0.15).toFixed(2),
+    ],
+    [
+      "",
       "Total",
       "",
-      quote.total,
+      '$' + (quote.total * 1.15).toFixed(2),
     ]);
 
     autoTable(pdf, {
@@ -112,6 +124,9 @@ export const Quote = () => {
                   Precio
                 </h3>
                 <h3 className="font-semibold text-gray-600 text-xs uppercase w-1/5 text-center">
+                  IVA
+                </h3>
+                <h3 className="font-semibold text-gray-600 text-xs uppercase w-1/5 text-center">
                   Total
                 </h3>
               </div>
@@ -132,20 +147,20 @@ export const Quote = () => {
                 <span className="font-semibold text-sm uppercase">
                   Subtotal
                 </span>
-                <span className="font-semibold text-sm">${quote!.total}</span>
+                <span className="font-semibold text-sm">${(quote!.total).toFixed(2)}</span>
               </div>
               <div className="flex justify-between mt-10 mb-5">
                 <span className="font-semibold text-sm uppercase">
                   Impuestos
                 </span>
                 <span className="font-semibold text-sm">
-                  ${quote!.total * 0.15}
+                  ${(quote!.total * 0.15).toFixed(2)}
                 </span>
               </div>
               <div className="border-t mt-8">
                 <div className="flex font-semibold justify-between py-6 text-sm uppercase">
                   <span>Total</span>
-                  <span>${quote!.total * 1.15}</span>
+                  <span>${(quote!.total * 1.15).toFixed(2)}</span>
                 </div>
                 <button
                   className="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full"
