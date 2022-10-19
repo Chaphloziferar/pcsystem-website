@@ -1,11 +1,11 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
 
 import { useAppDispatch, useAppSelector } from "../context/app/hooks";
 import { getQuote, addError } from "../context/features/quote/quoteSlice";
 
 import authApi from '../apis/authApi'
 import { Product } from "../interfaces/productInterfaces";
+import { ModalProductQuantity } from "./ModalProductQuantity";
 
 interface Props {
   product: Product;
@@ -13,37 +13,13 @@ interface Props {
 
 export const ProductCard = ({ product }: Props) => {
 
-  const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
   const dispatch = useAppDispatch();
 
-  const status = useAppSelector((state: any) => state.auth.status);
   const client = useAppSelector((state: any) => state.client.client);
 
-  const handleAddToCart = async () => {
-    const cart = localStorage.getItem("cart");
-
-    if(status === "Authenticated") {
-      try {
-        if(!cart){
-          const {data} = await authApi.post("/quote/addQuote", {clientDni: client!.dni});
-          localStorage.setItem("cart", data.quote._id);
-          dispatch(getQuote(data));
-
-          await authApi.put("/quote/addProductToQuote", {quoteId: data.quote._id, productName: product.name});
-          const {data: quote} = await authApi.get(`/quote/getQuote?quoteId=${data.quote._id}`);
-          dispatch(getQuote(quote));
-        } else {
-          await authApi.put("/quote/addProductToQuote", {quoteId: cart, productName: product.name});
-          const {data: quote} = await authApi.get(`/quote/getQuote?quoteId=${cart}`);
-          dispatch(getQuote(quote));
-        }
-      } catch (error: any) {
-        console.log(error)
-        dispatch(addError(error.response.data || "Información Incorrecta"));
-      }
-    } else {
-      navigate("/login");
-    }
+  const showQuantityModal = () => {
+    setShowModal(true);
   }
 
   return (
@@ -62,12 +38,15 @@ export const ProductCard = ({ product }: Props) => {
             ${product.price}
           </span>
           <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            onClick={handleAddToCart}
+            onClick={showQuantityModal}
           >
             Add to cart
           </button>
         </div>
       </div>
+
+      {showModal && <ModalProductQuantity setShowModal={setShowModal} product={product} />}
+
     </div>
   );
 };

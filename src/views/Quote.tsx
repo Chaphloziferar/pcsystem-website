@@ -48,9 +48,7 @@ export const Quote = () => {
     const result = unique?.map((data: any) => {
       let count = 1
       const newItem = newData?.filter((item: any) => {
-        if(data.name === item.name){
-          return item
-        }
+        return data.name === item.name
       })
     
       if(newItem.length > 0) count = newItem[0].count
@@ -150,20 +148,20 @@ export const Quote = () => {
     <div className="container mx-auto">
       <Header />
 
-      {!quote && (
+      {(!quote || quote?.products.length <= 0) && (
         <h1 className="text-2xl h-96 font-medium py-32 text-center">
           No hay productos en el carrito
         </h1>
       )}
 
-      {quote && (
+      {quote && quote?.products.length > 0 && (
         <div className="mx-auto mt-10">
           <div className="grid lg:grid-flow-col sm:grid-flow-row shadow-md my-10">
             <div className="w-full bg-white px-10 py-10">
               <div className="flex justify-between border-b pb-8">
                 <h1 className="font-semibold text-2xl">Carrito de Compras</h1>
                 <h2 className="font-semibold text-2xl">
-                  {quote!.products.length} Productos
+                  {quote?.products.length} Productos
                 </h2>
               </div>
               <div className="flex mt-10 mb-5">
@@ -181,7 +179,7 @@ export const Quote = () => {
                 </h3>
               </div>
 
-              {products.map((product: Product, index: number) => (
+              {products?.map((product: Product, index: number) => (
                 <QuoteItem product={product} key={index} />
               ))}
             </div>
