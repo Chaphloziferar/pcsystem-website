@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 
 import { useForm } from 'react-hook-form';
@@ -11,12 +11,38 @@ import { LoginData } from '../interfaces/authInterfaces';
 
 export const Login: React.FC = () => {
 
+  const [blocked, setBlocked] = useState(false)
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { register, handleSubmit, formState: { errors } } = useForm<LoginData>();
   const error = useAppSelector((state: any) => state.auth.errorMessage);
 
+  useEffect(() => {
+    let intent = localStorage.getItem('intent');
+    let newIntent = 0
+    if(intent !== null) {
+      newIntent = parseInt(intent);
+    }
+
+    if (newIntent > 2) {
+      setBlocked(true);
+      dispatch(addError('Maximo de intentos alcanzado. Intente mas tarde'));
+      setInterval(() => {
+        localStorage.removeItem('intent');
+        setBlocked(false);
+        dispatch(removeError());
+      }, 30000);
+    }
+  }, [dispatch])
+  
+
   const onSubmit = handleSubmit(async ({username, password}) => {
+    let intent = localStorage.getItem('intent');
+    let newIntent = 0
+    if(intent !== null) {
+      newIntent = parseInt(intent);
+    }
+
     try {
       const {data: login} = await authApi.post("/auth/signIn", {username, password});
       localStorage.setItem("token", login.token);
@@ -29,7 +55,19 @@ export const Login: React.FC = () => {
 
       navigate("/home");
     } catch (error: any) {
+      newIntent += 1;
+      localStorage.setItem('intent', newIntent.toString());
+      if (newIntent > 2) {
+        setBlocked(true);
+        dispatch(addError('Maximo de intentos alcanzado. Intente mas tarde'));
+        setInterval(() => {
+          localStorage.removeItem('intent');
+          setBlocked(false);
+          dispatch(removeError());
+        }, 30000);
+      } else {
         dispatch(addError(error.response.data || 'Información Incorrecta'));
+      }
     }
   })
 
@@ -68,14 +106,18 @@ export const Login: React.FC = () => {
             />
             {errors.password && <span className='text-red-600 text-sm'>This field is required</span>}
           </div>
-          <div>
-            <button className="w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 rounded-md text-white text-sm" onClick={onSubmit}>Login</button>
-          </div>
-          <div>
-            <Link to="/signup">
-              <button className="w-full py-2 px-4 bg-cyan-600 hover:bg-cyan-700 rounded-md text-white text-sm">Create Account</button>
-            </Link>
-          </div>
+          { !blocked &&
+            <>
+              <div>
+                <button className="w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 rounded-md text-white text-sm" onClick={onSubmit}>Login</button>
+              </div>
+              <div>
+                <Link to="/signup">
+                  <button className="w-full py-2 px-4 bg-cyan-600 hover:bg-cyan-700 rounded-md text-white text-sm">Create Account</button>
+                </Link>
+              </div>
+            </>
+          }
         </form>
       </div>
     </div>
