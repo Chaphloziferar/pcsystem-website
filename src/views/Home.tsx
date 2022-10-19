@@ -12,7 +12,6 @@ import authApi from '../apis/authApi';
 import { Category } from '../interfaces/categoryInterfaces';
 
 import { CategoryCard } from '../components/CategoryCard';
-import { ImportsNotUsedAsValues } from 'typescript';
 
 import { Product } from '../interfaces/productInterfaces';
 
@@ -22,7 +21,7 @@ import { ProductCard } from '../components/ProductCard';
 export const Home: React.FC = () => {
 
   const dispatch = useAppDispatch();
-  const categories = useAppSelector(state => state.category.categories);
+  const categories = useAppSelector((state: any) => state.category.categories);
   //const error = useAppSelector(state => state.category.errorMessage);
 
   useEffect(() => {
@@ -40,7 +39,7 @@ export const Home: React.FC = () => {
   }, [dispatch])
   
   
-  let products = useAppSelector(state => state.product.products);
+  let products = useAppSelector((state: any) => state.product.products);
 
   useEffect(() => {
     const loadProducts = async () => {

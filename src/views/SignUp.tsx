@@ -13,9 +13,9 @@ export const SignUp: React.FC = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const { register, handleSubmit, formState: { errors } } = useForm<SignUpData>();
-    const error = useAppSelector(state => state.register.errorMessage);
+    const error = useAppSelector((state: any) => state.register.errorMessage);
 
-    const onSubmit = handleSubmit(async ({username, email, password, role = 'user', dni, firsName, secondName = '', firstSurname, secondSurname = '', address = '', phoneNumber = ''}) => {
+    const onSubmit = handleSubmit(async ({username = '', email = '', password = '', role = 'user', dni = '', firsName = '', secondName = '', firstSurname = '', secondSurname = '', address = '', phoneNumber = ''}) => {
         try {
             const registerClient = await authApi.post("/client/addClient", {dni, firsName, secondName, firstSurname, secondSurname, email, address, phoneNumber});
             if(registerClient.status === 201){

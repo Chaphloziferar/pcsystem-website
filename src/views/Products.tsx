@@ -14,7 +14,7 @@ export const Products = () => {
 
   const dispatch = useAppDispatch();
   
-  let products = useAppSelector(state => state.product.products);
+  let products = useAppSelector((state: any) => state.product.products);
 
   useEffect(() => {
     const loadProducts = async () => {

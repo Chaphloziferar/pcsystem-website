@@ -14,7 +14,7 @@ export const Login: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { register, handleSubmit, formState: { errors } } = useForm<LoginData>();
-  const error = useAppSelector(state => state.auth.errorMessage);
+  const error = useAppSelector((state: any) => state.auth.errorMessage);
 
   const onSubmit = handleSubmit(async ({username, password}) => {
     try {

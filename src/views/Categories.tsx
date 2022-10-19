@@ -13,7 +13,7 @@ import { CategoryCard } from '../components/CategoryCard';
 export const Categories = () => {
     
     const dispatch = useAppDispatch();
-    const categories = useAppSelector(state => state.category.categories);
+    const categories = useAppSelector((state: any) => state.category.categories);
     //const error = useAppSelector(state => state.category.errorMessage);
 
     useEffect(() => {

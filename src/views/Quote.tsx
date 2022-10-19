@@ -9,11 +9,12 @@ import authApi from "../apis/authApi";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { QuoteItem } from "../components/QuoteItem";
+import { Product } from '../interfaces/productInterfaces';
 
 export const Quote = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const quote = useAppSelector((state) => state.quote.quote);
+  const quote = useAppSelector((state: any) => state.quote.quote);
 
   const handleFinishQuote = async () => {
     const cart = localStorage.getItem("cart");
@@ -65,7 +66,7 @@ export const Quote = () => {
                 </h3>
               </div>
 
-              {quote?.products.map((product, index) => (
+              {quote?.products.map((product: Product, index: number) => (
                 <QuoteItem product={product} key={index} />
               ))}
             </div>
